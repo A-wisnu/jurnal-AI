@@ -1,0 +1,176 @@
+:root {
+  --primary-bg: #f4f7f9;
+  --secondary-bg: #ffffff;
+  --primary-text: #2c3e50;
+  --secondary-text: #8899a6;
+  --accent-blue: #3498db;
+  --accent-gradient: linear-gradient(45deg, #3498db, #2980b9);
+  --success: #2ecc71;
+  --danger: #e74c3c;
+  --neutral: #95a5a6;
+  --border-color: #dfe6e9;
+  --shadow-color: rgba(44, 62, 80, 0.1);
+  --input-bg: #eef2f5;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { height: 100%; font-family: 'Roboto', sans-serif; background-color: var(--primary-bg); color: var(--primary-text); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+#root { display: flex; flex-direction: column; height: 100%; }
+
+/* Intro Screen */
+.intro-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--primary-bg);
+    display: flex; justify-content: center; align-items: center; z-index: 3000;
+    animation: fadeOut 3s forwards;
+}
+.intro-content { text-align: center; animation: fadeIn 1.5s ease-in-out; }
+.intro-content h1 { font-size: 2.5rem; font-weight: 700; color: var(--primary-text); }
+.intro-content p { font-size: 1.25rem; color: var(--secondary-text); }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeOut { 0%, 80% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
+
+/* Main App Container */
+.app-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    width: 100%;
+    opacity: 0;
+}
+.app-container.fade-in { animation: appFadeIn 0.5s forwards; }
+@keyframes appFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* Header */
+header { display: flex; align-items: center; margin-bottom: 2rem; }
+header h1 { font-size: 2rem; font-weight: 700; color: var(--primary-text); }
+header h1 .material-symbols-outlined { font-size: 2.25rem; color: var(--accent-blue); vertical-align: middle; margin-right: 0.5rem; }
+
+/* General Styles */
+main { display: flex; flex-direction: column; gap: 1.5rem; }
+.card {
+    background-color: var(--secondary-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    padding: 1.5rem;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card:hover {
+    box-shadow: 0 8px 25px var(--shadow-color);
+    transform: translateY(-2px);
+}
+h2 { font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--primary-text); border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;}
+h3 { font-size: 1.1rem; margin-bottom: 1rem; color: var(--primary-text); font-weight: 500; }
+
+/* Buttons & Actions */
+.actions-container { display: grid; grid-template-columns: auto auto 1fr; gap: 0.75rem; align-items: center; }
+.btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 0.5rem; padding: 0.75rem 1.25rem; font-size: 1rem; font-weight: 500;
+    border-radius: 8px; border: none; cursor: pointer; transition: all 0.2s ease;
+    text-decoration: none; white-space: nowrap;
+}
+.btn:disabled { cursor: not-allowed; background-color: #bdc3c7 !important; background-image: none !important; box-shadow: none; transform: none; }
+.btn .material-symbols-outlined { font-size: 1.25rem; }
+
+.btn-ai { background: var(--accent-gradient); color: white; }
+.btn-ai:hover:not(:disabled) { box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4); transform: translateY(-2px); }
+
+.btn-secondary { background-color: #fff; color: var(--primary-text); border: 1px solid var(--border-color); }
+.btn-secondary:hover:not(:disabled) { background-color: #f8f9fa; border-color: #ced4da; }
+
+.file-input { display: none; }
+.file-input-label { cursor: pointer; }
+
+.btn-primary { background-color: var(--primary-text); color: white; }
+.btn-primary:hover:not(:disabled) { background-color: #3d566e; }
+
+/* Trade Form */
+.trade-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.25rem;
+}
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.form-group label { font-size: 0.875rem; font-weight: 500; color: var(--secondary-text); }
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 0.75rem; font-size: 1rem;
+    border: 1px solid var(--border-color); border-radius: 8px;
+    background-color: var(--input-bg); transition: all 0.2s ease;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--accent-blue);
+    background-color: var(--secondary-bg); box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+.checkbox-group { flex-direction: row; align-items: center; gap: 0.5rem; grid-column: 1 / -1; }
+.checkbox-group label { order: 2; cursor: pointer; }
+.checkbox-group input { order: 1; width: auto; }
+.form-group.full-width { grid-column: 1 / -1; }
+
+/* Trade List */
+.trade-list-card { padding-top: 1rem; }
+.trade-list-container { display: flex; flex-direction: column; gap: 0.75rem; }
+.empty-state { text-align: center; padding: 2rem 1rem; }
+.empty-state .material-symbols-outlined { font-size: 3rem; color: var(--secondary-text); }
+.empty-state h3 { margin-top: 0.5rem; }
+.empty-state p { color: var(--secondary-text); }
+
+.trade-item { background: var(--primary-bg); border-radius: 8px; padding: 1rem; border: 1px solid var(--border-color); }
+.trade-item-main { display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+.trade-info .trade-symbol { font-weight: 500; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem; }
+.trade-type { font-size: 0.75rem; font-weight: 700; padding: 0.1rem 0.4rem; border-radius: 4px; color: white; text-transform: uppercase; }
+.trade-type-buy { background-color: var(--success); }
+.trade-type-sell { background-color: var(--danger); }
+.trade-info .trade-details { font-size: 0.875rem; color: var(--secondary-text); margin-top: 0.25rem; }
+.trade-pnl-section { display: flex; align-items: center; gap: 0.5rem; }
+.trade-pnl { font-size: 1.1rem; font-weight: 700; }
+.pnl-positive { color: var(--success); }
+.pnl-negative { color: var(--danger); }
+.pnl-neutral { color: var(--neutral); }
+.expand-btn { background: none; border: none; cursor: pointer; color: var(--secondary-text); }
+.trade-item-details {
+    margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color);
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem 1.5rem; font-size: 0.9rem;
+}
+.trade-item-details div { display: flex; justify-content: space-between; }
+.trade-item-details strong { color: var(--secondary-text); }
+.trade-item-details span { text-align: right; }
+.trade-item-details .notes { flex-direction: column; text-align: left; }
+.trade-item-details .notes span { text-align: left; margin-top: 0.25rem; }
+
+/* Analysis Section */
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.metric-card { display: flex; align-items: center; background-color: var(--primary-bg); padding: 1rem; border-radius: 8px; gap: 1rem; border: 1px solid var(--border-color); }
+.metric-icon { color: var(--accent-blue); font-size: 1.5rem; }
+.metric-content .label { font-size: 0.875rem; color: var(--secondary-text); }
+.metric-content .value { font-size: 1.25rem; font-weight: 500; }
+
+.charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.chart-card { background-color: var(--primary-bg); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color); }
+.chart-container { position: relative; height: 250px; }
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    z-index: 2000; color: var(--primary-text); gap: 1rem;
+}
+.spinner {
+    width: 48px; height: 48px; border: 5px solid var(--border-color);
+    border-bottom-color: var(--accent-blue); border-radius: 50%;
+    display: inline-block; animation: rotation 1s linear infinite;
+}
+@keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .app-container { padding: 1rem; }
+    header h1 { font-size: 1.75rem; }
+    .trade-form { grid-template-columns: 1fr; }
+    .actions-container { grid-template-columns: 1fr 1fr; }
+    .actions-container .btn-ai { grid-column: 1 / -1; }
+    .charts-grid { grid-template-columns: 1fr; }
+    .trade-item-details { grid-template-columns: 1fr; }
+}

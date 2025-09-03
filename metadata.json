@@ -1,0 +1,5 @@
+{
+  "name": "AI Trading Journal",
+  "description": "A mobile-first trading journal with AI-powered analysis, Excel import/export, and local data storage.",
+  "requestFramePermissions": []
+}
